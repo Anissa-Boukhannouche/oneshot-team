@@ -296,10 +296,10 @@ async function send() {
   busy = true; document.getElementById('sbtn').disabled = true;
   const tid = 'ty' + Date.now(); addTyping(tid);
   try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
+    const r = await fetch('https://oneshot-team.onrender.com/api/chat', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1500, system: agents[cur].prompt, messages: msgs })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: msgs, system: agents[cur].prompt, apiKey: API_KEY })
     });
     const d = await r.json();
     rmTyping(tid);
